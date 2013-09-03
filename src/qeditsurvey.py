@@ -34,6 +34,27 @@ class QEditSurvey(QtGui.QMainWindow):
         self.setGeometry(300, 300, 300, 200)
         self.show()
 
+    def newSurvey(self):
+        pass
+
+    def openSurvey(self):
+        pass
+
+    def saveSurvey(self):
+        pass
+
+    def saveSurveyAs(self):
+        pass
+
+    def exportSurvey(self):
+        pass
+
+    def printSurvey(self):
+        pass
+
+    def quit(self):
+        qApp.quit()
+
 if __name__ == "__main__":
     import getopt
     

@@ -9,7 +9,10 @@ class QEditSurvey(QtGui.QMainWindow):
 
         menubar = self.menuBar()
         
+        #
         # File
+        #
+        
         file_menu = menubar.addMenu(L("FILE_MENU"))
         file_menu.addAction(L("FILE_MENU_NEW"))
         file_menu.addAction(L("FILE_MENU_OPEN"))
@@ -20,7 +23,12 @@ class QEditSurvey(QtGui.QMainWindow):
         file_menu.addAction(L("FILE_MENU_EXPORT"))
         file_menu.addAction(L("FILE_MENU_PRINT"))
         file_menu.addSeparator()
-        file_menu.addAction(L("FILE_MENU_QUIT"))
+        
+        # Quit 
+        action = QtGui.QAction(L("FILE_MENU_QUIT"), self)
+        action.triggered.connect(self.quit)
+        file_menu.addAction(action)
+        
 
         # Survey
         survey_menu = menubar.addMenu(L("SURVEY_MENU"))
@@ -31,7 +39,6 @@ class QEditSurvey(QtGui.QMainWindow):
         survey_menu.addAction(L("SURVEY_MENU_ADD_ANSWER"))
         
         self.setWindowTitle("Survey")
-        self.setGeometry(300, 300, 300, 200)
         self.show()
 
     def newSurvey(self):
@@ -53,7 +60,7 @@ class QEditSurvey(QtGui.QMainWindow):
         pass
 
     def quit(self):
-        qApp.quit()
+        sys.exit(0)
 
 if __name__ == "__main__":
     import getopt
@@ -74,6 +81,7 @@ if __name__ == "__main__":
     loadTranslation(lang)
     
     app = QtGui.QApplication(sys.argv)
-    ali = QEditSurvey()
+    edit_survey = QEditSurvey()
+    edit_survey.setGeometry(200, 100, 800, 600)
     sys.exit(app.exec_())
                

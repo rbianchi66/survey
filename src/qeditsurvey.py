@@ -2,6 +2,7 @@ from PyQt4 import QtGui
 import sys
 import parms
 from translation import L, loadTranslation
+from qsurveygrid import QSurveyGrid
 
 class QEditSurvey(QtGui.QMainWindow):
     def __init__(self):
@@ -15,7 +16,12 @@ class QEditSurvey(QtGui.QMainWindow):
         
         file_menu = menubar.addMenu(L("FILE_MENU"))
         file_menu.addAction(L("FILE_MENU_NEW"))
-        file_menu.addAction(L("FILE_MENU_OPEN"))
+        
+        # Open 
+        action = QtGui.QAction(L("FILE_MENU_OPEN"), self)
+        action.triggered.connect(self.openSurvey)
+        file_menu.addAction(action)
+
         file_menu.addAction(L("FILE_MENU_SAVE"))
         file_menu.addAction(L("FILE_MENU_SAVE_AS"))
         file_menu.addAction(L("FILE_MENU_CLOSE"))
@@ -38,6 +44,13 @@ class QEditSurvey(QtGui.QMainWindow):
         question_menu.addAction(L("SURVEY_MENU_QUESTION_OPEN"))
         survey_menu.addAction(L("SURVEY_MENU_ADD_ANSWER"))
         
+        
+        # Survey selection frame
+        self.survey_frame = QtGui.QFrame()
+        self.survey_frame.setFrameStyle(QtGui.QFrame.Panel | QtGui.QFrame.Sunken)
+        self.setCentralWidget(self.survey_frame)
+        
+        
         self.setWindowTitle("Survey")
         self.show()
 
@@ -45,7 +58,11 @@ class QEditSurvey(QtGui.QMainWindow):
         pass
 
     def openSurvey(self):
-        pass
+        from survey import Survey, loadSurvey
+        filename = QtGui.QFileDialog.getOpenFileName(self, "Select survey file", ".", "Survey Files (*.svy)")
+        survey = loadSurvey(filename)
+        sg = QSurveyGrid(survey)
+        self.setCentralWidget(sg)
 
     def saveSurvey(self):
         pass
